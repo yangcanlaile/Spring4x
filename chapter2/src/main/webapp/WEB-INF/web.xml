@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+
+    <!--smart-context.xml配置文件，必须配置在classpath路径，WEB-INF/-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:smart-context.xml</param-value>
+    </context-param>
+
+    <!--开启监听，容器启动，就加载上面contextConfigLocation设置的配置-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>smart</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <!--设置优先级，数的值越小，该Servlet的优先级就越高，应用启动时就优先加载。-->
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    <!--所有以.html为结尾的网址请求，都会捕获，由smart servlet处理-->
+    <servlet-mapping>
+        <servlet-name>smart</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+</web-app>
