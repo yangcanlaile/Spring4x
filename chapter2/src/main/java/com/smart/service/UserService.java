@@ -32,6 +32,7 @@ public class UserService {
         loginLog.setUserId(user.getUserId());
         userDao.updateLoginInfo(user);
         loginLogDao.insertloginLog(loginLog);
+
     }
 
     @Autowired
