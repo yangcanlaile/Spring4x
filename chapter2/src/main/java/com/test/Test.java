@@ -1,37 +1,21 @@
 package com.test;
 
-import com.smart.reflect.Car;
+import com.smart.dao.UserDao;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:smart-context.xml"})
 public class Test {
-    private static final String REGX = "cat\\B";
-    private static final String INPUT = "cat cat cat cattie cat";
+    @Autowired
+    private List<UserDao> userDaoList;
 
-
-    public static Car initByDefaultConst() throws Throwable {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Class clazz = loader.loadClass("com.smart.reflect.Car");
-
-        //获得构造函数
-        Constructor cons = clazz.getDeclaredConstructor((Class[]) null);
-        Car car = (Car) cons.newInstance();
-
-        //通过反射方法设置属性
-        Method setBrand = clazz.getMethod("setBrand", String.class);
-        setBrand.invoke(car, "红旗CA72");
-        Method setColor = clazz.getMethod("setColor", String.class);
-        setColor.invoke(car, "黑色");
-        Method setMaxSpeed = clazz.getMethod("setMaxSpeed", int.class);
-        setMaxSpeed.invoke(car, 200);
-        return car;
-    }
-
-    public static void main(String[] args) throws Throwable {
-        Car car = initByDefaultConst();
-        car.introduce();
-
-
+    @org.junit.Test
+    public void getListLen() {
+        System.out.println("userDao有多少个： " + userDaoList.size());
     }
 }

@@ -1,25 +1,40 @@
 package com.test;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Base64;
-import java.util.List;
-import java.util.function.Predicate;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.*;
+@RunWith(Parameterized.class)
 public class PrintArray {
 
-    public static void eval(List<Integer> list, Predicate<Integer> predicat) {
-        for (Integer n : list) {
-            if (predicat.test(n)) {
-                System.out.print(n + " ");
-            }
-        }
+    private double expected;
+    private double valOne;
+    private double valTwo;
+
+    @Parameters
+    public static Collection<Integer[]> getParams() {
+        return Arrays.asList(new Integer[][]{
+                {2, 1, 1},
+                {3, 2, 1},
+                {4, 3, 1},
+        });
     }
 
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        String encoding = Base64.getEncoder().encodeToString("So".getBytes());
-        System.out.println(encoding);
+    public PrintArray(double expected, double valOne, double valTwo) {
+        this.expected = expected;
+        this.valOne = valOne;
+        this.valTwo = valTwo;
+    }
 
-        byte[] decode = Base64.getDecoder().decode(encoding);
-        System.out.println(new String(decode, "UTF-8"));
+    @Test
+    public void testAdd() {
+        Calculator calculator = new Calculator();
+        assertEquals(expected, valOne, valTwo);
+
     }
 }
