@@ -34,7 +34,7 @@ public class PrintArray {
     @Test
     public void testAdd() {
         Calculator calculator = new Calculator();
-        assertEquals(expected, valOne, valTwo);
+        assertEquals(expected, calculator.add(valOne, valTwo), 0);
 
     }
 }
